@@ -1,5 +1,7 @@
 clear;
-load train;
+load banana;
+x = train.data;
+y = train.labels;
 
 sigma = 0.5;
 [lambda, alpha, elbow] = svmPath(x, y, @kernel, sigma);
