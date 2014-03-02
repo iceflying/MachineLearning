@@ -26,9 +26,10 @@ lambdastar = lambda(l);
 
 while l < lmax
     Isl = find(hl(:, l).*hl(:, l+1)<0);
-    lambdalstar = (lambda(l+1)*hl(Isl, l)-lambda(l)*hl(Isl, l+1))/...
+    lambdalstar = (lambda(l+1)*hl(Isl, l)-lambda(l)*hl(Isl, l+1))./...
                   (hl(Isl, l)-hl(Isl, l+1));
     [~, Ilambdal] = sort(lambdalstar, 'descend');
+    E = sum(abs(yV-sign(hl(:, l))))/(2*nV);
     for i = 1:length(Ilambdal)
         if yV(Ilambdal(i)) == sign(hl(Ilambdal(i), l))
             E = E + 1/nV;
@@ -37,7 +38,7 @@ while l < lmax
         end
         if E < Estar
             Estar = E;
-            lambdastar = lambda(Ilambdal(i));
+            lambdastar = lambdalstar(Ilambdal(i));
         end
     end
     l = l + 1;
